@@ -45,4 +45,21 @@ export class UserRepository {
     });
     await user.save();
   }
+
+  async getUserByName(name) {
+    const user = await models.instance.User.findOneAsync({ bucket: 'TEST_BUCKET', name });
+    return user || null;
+  }
+
+  async updateUser(name, userInfo) {
+    const updatedUser = {
+      surname: userInfo?.surName || undefined,
+      age: userInfo?.age || undefined,
+    };
+    await models.instance.User.updateAsync({ bucket: 'TEST_BUCKET', name }, updatedUser);
+  }
+
+  async deleteUser(name) {
+    await models.instance.User.deleteAsync({ bucket: 'TEST_BUCKET', name });
+  }
 }

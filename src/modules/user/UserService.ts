@@ -19,4 +19,16 @@ export class UserService {
   async postUser(requestParams) {
     await this.userRepository.postUser(requestParams);
   }
+
+  async getUserByName(name) {
+    return await this.userRepository.getUserByName(name);
+  }
+
+  async updateUser(name, userInfo) {
+    await this.userRepository.updateUser(name, userInfo);
+  }
+
+  async deleteUser(name) {
+    await this.userRepository.deleteUser(name);
+  }
 }
