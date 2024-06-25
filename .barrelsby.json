@@ -1,0 +1,12 @@
+{
+  "directory": ["./src/modules","./src/pages"],
+  "exclude": [
+    "__mock__",
+    "__mocks__",
+    ".spec.ts"
+  ],
+  "include": [
+    "Controller.ts"
+  ],
+  "delete": true
+}
