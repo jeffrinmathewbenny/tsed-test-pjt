@@ -1,6 +1,6 @@
 import { Forbidden } from '@tsed/exceptions';
 import { Middleware, MiddlewareMethods } from '@tsed/platform-middlewares';
-import { AuthenticationService } from '../domains/authentication/AuthenticationService';
+import { AuthenticationService } from '../service/AuthenticationService';
 
 @Middleware()
 export class AuthenticationMiddleware implements MiddlewareMethods {

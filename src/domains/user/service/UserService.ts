@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@tsed/di';
-import { UserRepository } from './UserRepository';
+import { UserRepository } from '../repository/UserRepository';
 import { NotFound } from '@tsed/exceptions';
 
 @Injectable()

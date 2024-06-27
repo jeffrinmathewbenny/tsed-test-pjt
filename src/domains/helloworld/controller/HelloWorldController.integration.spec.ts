@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import SuperTest from 'supertest';
 import { HelloWorldController } from './HelloWorldController';
-import { Server } from '../../Server';
+import { Server } from '../../../Server';
 
 describe('HelloWorldController', () => {
   beforeEach(

@@ -1,9 +1,9 @@
 import { Controller, Inject } from '@tsed/di';
 import { Delete, Description, Get, Post, Put, Required, Status } from '@tsed/schema';
-import { ProfileController } from './profile/ProfileController';
-import { UserService } from './UserService';
+import { ProfileController } from './ProfileController';
+import { UserService } from '../service/UserService';
 import { BodyParams, PathParams } from '@tsed/platform-params';
-import { UserModel } from './UserModel';
+import { UserModel } from '../model/UserModel';
 
 @Controller({
   path: '/user',

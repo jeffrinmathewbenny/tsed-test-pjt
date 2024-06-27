@@ -1,8 +1,8 @@
 import { Controller, Inject } from '@tsed/di';
 import { Get } from '@tsed/schema';
-import { HelloWorldService } from './HelloWorldService';
+import { HelloWorldService } from '../service/HelloWorldService';
 import { UseBefore } from '@tsed/platform-middlewares';
-import { AuthenticationMiddleware } from '../../middlewares/AuthenticationMiddleware';
+import { AuthenticationMiddleware } from '../../authentication/middlewares/AuthenticationMiddleware';
 
 @Controller('/hello-world')
 @UseBefore(AuthenticationMiddleware)

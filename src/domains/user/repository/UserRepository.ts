@@ -1,8 +1,11 @@
 import { Injectable } from '@tsed/di';
-const models = require('express-cassandra');
-import { config } from '../../config/index';
+import { config } from '../../../config/index';
 
-models.setDirectory(__dirname).bind(
+const models = require('express-cassandra');
+const path = require('path');
+
+const modelPath = path.join(__dirname, '../model');
+models.setDirectory(modelPath).bind(
   {
     clientOptions: {
       contactPoints: config.envs.CASSANDRA_CONTACT_POINTS.split(' '),
