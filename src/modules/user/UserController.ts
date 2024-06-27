@@ -1,5 +1,5 @@
 import { Controller, Inject } from '@tsed/di';
-import { Delete, Get, Post, Put, Required, Status } from '@tsed/schema';
+import { Delete, Description, Get, Post, Put, Required, Status } from '@tsed/schema';
 import { ProfileController } from './profile/ProfileController';
 import { UserService } from './UserService';
 import { BodyParams, PathParams } from '@tsed/platform-params';
@@ -15,31 +15,33 @@ export class UserController {
 
   @Get('/')
   @Status(200)
-  async get() {
-    return await this.userService.getUser();
+  @Description('Get the list of users')
+  async get(): Promise<UserModel[]> {
+    const userData = await this.userService.getUser();
+    return userData;
   }
 
   @Post('/')
   @Status(201)
-  async post(@BodyParams() @Required() requestParams: UserModel) {
+  async post(@BodyParams() @Required() requestParams: UserModel): Promise<void> {
     await this.userService.postUser(requestParams);
   }
 
   @Get('/:name')
   @Status(200)
-  async getUserByName(@Required() @PathParams('name') name: string) {
+  async getUserByName(@Required() @PathParams('name') name: string): Promise<UserModel> {
     return await this.userService.getUserByName(name);
   }
 
   @Put('/:name')
   @Status(200)
-  async update(@Required() @PathParams('name') name: string, @Required() @BodyParams() updateUser: Partial<UserModel>) {
+  async update(@Required() @PathParams('name') name: string, @Required() @BodyParams() updateUser: Partial<UserModel>): Promise<void> {
     await this.userService.updateUser(name, updateUser);
   }
 
   @Delete('/:name')
   @Status(200)
-  async delete(@Required() @PathParams('name') name: string) {
+  async delete(@Required() @PathParams('name') name: string): Promise<void> {
     await this.userService.deleteUser(name);
   }
 }

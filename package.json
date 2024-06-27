@@ -13,7 +13,7 @@
     "test:lint": "eslint '**/*.{ts,js}'",
     "test:lint:fix": "eslint '**/*.{ts,js}' --fix",
     "prettier": "prettier '**/*.{ts,js,json,md,yml,yaml}' --write",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky"
   },
   "dependencies": {
     "@tsed/ajv": "^7.73.6",

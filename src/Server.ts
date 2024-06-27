@@ -1,53 +1,47 @@
-import {join} from "path";
-import {Configuration, Inject} from "@tsed/di";
-import {PlatformApplication} from "@tsed/common";
-import "@tsed/platform-express"; // /!\ keep this import
-import "@tsed/ajv";
-import "@tsed/swagger";
-import {config} from "./config/index";
-import * as modules from "./modules/index";
-import * as pages from "./pages/index";
+import { join } from 'path';
+import { Configuration, Inject } from '@tsed/di';
+import { PlatformApplication } from '@tsed/common';
+import '@tsed/platform-express'; // /!\ keep this import
+import '@tsed/ajv';
+import '@tsed/swagger';
+import { config } from './config/index';
+import * as modules from './modules/index';
+import * as pages from './pages/index';
 
 @Configuration({
   ...config,
-  acceptMimes: ["application/json"],
-  httpPort: process.env.PORT || 8083,
+  acceptMimes: ['application/json'],
+  httpPort: `${process.env.HOST}:${process.env.PORT}` || 8083,
   httpsPort: false, // CHANGE
   disableComponentsScan: true,
   ajv: {
-    returnsCoercedValues: true
+    returnsCoercedValues: true,
   },
   mount: {
-    "/v1": [
-      ...Object.values(modules)
-    ],
-    "/": [
-      ...Object.values(pages)
-    ]
+    '/v1': [...Object.values(modules)],
+    '/': [...Object.values(pages)],
   },
   swagger: [
     {
-      path: "/doc",
-      specVersion: "3.0.1"
-    }
+      path: '/doc',
+      specVersion: '3.0.1',
+    },
   ],
   middlewares: [
-    "cors",
-    "cookie-parser",
-    "compression",
-    "method-override",
-    "json-parser",
-    { use: "urlencoded-parser", options: { extended: true }}
+    'cors',
+    'cookie-parser',
+    'compression',
+    'method-override',
+    'json-parser',
+    { use: 'urlencoded-parser', options: { extended: true } },
   ],
   views: {
-    root: join(process.cwd(), "../views"),
+    root: join(process.cwd(), '../views'),
     extensions: {
-      ejs: "ejs"
-    }
+      ejs: 'ejs',
+    },
   },
-  exclude: [
-    "**/*.spec.ts"
-  ]
+  exclude: ['**/*.spec.ts'],
 })
 export class Server {
   @Inject()
