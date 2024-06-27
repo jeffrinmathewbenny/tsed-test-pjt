@@ -1,11 +1,10 @@
-import { Forbidden } from "@tsed/exceptions";
-import {Middleware, MiddlewareMethods} from "@tsed/platform-middlewares";
-import { AuthenticationService } from "../modules/authentication/AuthenticationService";
+import { Forbidden } from '@tsed/exceptions';
+import { Middleware, MiddlewareMethods } from '@tsed/platform-middlewares';
+import { AuthenticationService } from '../domains/authentication/AuthenticationService';
 
 @Middleware()
 export class AuthenticationMiddleware implements MiddlewareMethods {
-  constructor(private authService: AuthenticationService) {
-  }
+  constructor(private authService: AuthenticationService) {}
 
   use() {
     const isValidUser = this.authService.isValidUser();
@@ -13,5 +12,4 @@ export class AuthenticationMiddleware implements MiddlewareMethods {
       throw new Forbidden('Not Allowed');
     }
   }
-
 }

@@ -5,7 +5,7 @@ import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/ajv';
 import '@tsed/swagger';
 import { config } from './config/index';
-import * as modules from './modules/index';
+import * as modules from './domains/index';
 import * as pages from './pages/index';
 
 @Configuration({
