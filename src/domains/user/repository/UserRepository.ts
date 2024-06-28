@@ -1,5 +1,6 @@
 import { Injectable } from '@tsed/di';
 import { config } from '../../../config/index';
+import { User, UserModel } from '../model/UserModel';
 
 const models = require('express-cassandra');
 const path = require('path');
@@ -34,27 +35,38 @@ models.setDirectory(modelPath).bind(
 
 @Injectable()
 export class UserRepository {
-  async getUsers() {
-    return await models.instance.User.findAsync({ bucket: 'TEST_BUCKET' });
+  async getUsers(): Promise<User[]> {
+    const users: User[] = [];
+    const userList = await models.instance.User.findAsync({ bucket: 'TEST_BUCKET' });
+    if (userList?.length) {
+      userList.forEach((user: UserModel) => {
+        users.push({
+          name: user.name,
+          surName: user.surname,
+          age: user.age,
+        });
+      });
+    }
+    return users;
   }
 
-  async postUser(requestParams) {
+  async postUser(userInfo: User): Promise<void> {
     const user = new models.instance.User({
       bucket: 'TEST_BUCKET',
-      name: requestParams.name,
-      surname: requestParams.surName,
-      age: requestParams.age,
+      name: userInfo.name,
+      surname: userInfo.surName,
+      age: userInfo.age,
       created: { $db_function: 'toTimestamp(now())' },
     });
     await user.save();
   }
 
-  async getUserByName(name) {
+  async getUserByName(name: string): Promise<User | null> {
     const user = await models.instance.User.findOneAsync({ bucket: 'TEST_BUCKET', name });
     return user || null;
   }
 
-  async updateUser(name, userInfo) {
+  async updateUser(name: string, userInfo: Partial<User>) {
     const updatedUser = {
       surname: userInfo?.surName || undefined,
       age: userInfo?.age || undefined,
@@ -62,7 +74,7 @@ export class UserRepository {
     await models.instance.User.updateAsync({ bucket: 'TEST_BUCKET', name }, updatedUser);
   }
 
-  async deleteUser(name) {
+  async deleteUser(name: string) {
     await models.instance.User.deleteAsync({ bucket: 'TEST_BUCKET', name });
   }
 }

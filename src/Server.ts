@@ -7,6 +7,7 @@ import '@tsed/swagger';
 import { config } from './config/index';
 import * as modules from './domains/index';
 import * as pages from './pages/index';
+import { GlobalErrorHandlerMiddleware } from './util/error/GlobalErrorHandlerMiddleware';
 
 @Configuration({
   ...config,
@@ -49,4 +50,8 @@ export class Server {
 
   @Configuration()
   protected settings: Configuration;
+
+  $afterRoutesInit() {
+    this.app.use(GlobalErrorHandlerMiddleware);
+  }
 }
