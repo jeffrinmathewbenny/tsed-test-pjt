@@ -17,6 +17,6 @@ describe('HelloWorldController', () => {
     const request = SuperTest(PlatformTest.callback());
     const response = await request.get('/hello-world').expect(200);
 
-    expect(response.text).toEqual('hello');
+    expect(response.text).toEqual('Hello World');
   });
 });
