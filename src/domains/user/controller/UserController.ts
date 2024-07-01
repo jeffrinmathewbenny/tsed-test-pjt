@@ -14,8 +14,8 @@ export class UserController {
   private userService: UserService;
 
   @Get('/')
-  @Returns(200, Array).Of(User).Description('Success')
-  @Returns(404).Description('Not Found')
+  @(Returns(200, Array).Of(User).Description('Success')) // prettier-ignore
+  @(Returns(404).Description('Not Found')) // prettier-ignore
   @Description('Get the list of users')
   async get(): Promise<User[]> {
     const userData = await this.userService.getUser();
@@ -29,14 +29,14 @@ export class UserController {
   }
 
   @Get('/:name')
-  @Returns(200, User).Description('Success')
+  @(Returns(200, User).Description('Success')) // prettier-ignore
   async getUserByName(@Required() @PathParams('name') name: string): Promise<User | null> {
     return await this.userService.getUserByName(name);
   }
 
   @Put('/:name')
-  @Returns(201).Description('Success')
-  @Returns(404).Description('Not Found')
+  @(Returns(201).Description('Success')) // prettier-ignore
+  @(Returns(404).Description('Not Found')) // prettier-ignore
   async update(@Required() @PathParams('name') name: string, @Required() @BodyParams() updateUser: Partial<User>): Promise<void> {
     await this.userService.updateUser(name, updateUser);
   }

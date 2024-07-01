@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "sourceRoot": "src",
     "module": "commonjs",
-    "target": "esnext",
+    "target": "ES6",
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
@@ -22,7 +22,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "lib": ["es7", "dom", "ESNext.AsyncIterable"],
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "paths": {
+      "@src": ["src/*"],
+      "@domains": ["src/domains/*"]
+    }
   },
   "include": ["src"],
   "linterOptions": {
