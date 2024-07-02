@@ -29,25 +29,21 @@ export class GlobalErrorHandlerMiddleware implements MiddlewareMethods {
   use(@Err() error: any, @Req() request: Req, @Res() response: Res): any {
     if (typeof error === 'string') {
       response.status(404).send(toHTML(error));
-
       return;
     }
 
     if (error instanceof Exception || error.status) {
       this.handleException(error, request, response);
-
       return;
     }
 
     this.handleError(error, request, response);
-
     return;
   }
 
   protected handleError(error: any, request: Req, response: Res) {
     const logger = request.$ctx.logger;
     const err = this.mapError(error);
-
     logger.error({
       error: err,
     });
@@ -70,6 +66,7 @@ export class GlobalErrorHandlerMiddleware implements MiddlewareMethods {
 
   protected mapError(error: any) {
     return {
+      name: error?.name || undefined,
       message: error.message,
       stack: this.env === Env.DEV ? error.stack : undefined,
       status: error.status || 500,
